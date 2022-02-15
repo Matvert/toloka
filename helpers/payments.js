@@ -7,7 +7,7 @@ const cryptoPay = new CryptoPay(token, {
     protocol: 'https',
     webhook: {
         serverHostname: 'localhost',
-        serverPort: 8080,
+        serverPort: process.env.PORT || 8080,
         path: '/webhook'
     },
 });
