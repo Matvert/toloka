@@ -77,7 +77,6 @@ const onAmountSelected = async ctx => {
 
         
         await ctx.reply(ctx.i18n.t('deposit', { amount: ctx.message.text, asset: ctx.session.asset}),{
-            /*'Чтобы пополнить баланс на ' + ctx.message.text + ' ' + ctx.session.asset + ' перейдите по ссылке ниже', {*/
             parse_mode: 'HTML',
             reply_markup: Markup.inlineKeyboard([
                 [Markup.urlButton(ctx.i18n.t('pay'), pay_url)]
@@ -96,44 +95,5 @@ const onAmountSelected = async ctx => {
     }
 
 }
-
-cryptoPay.on('invoice_paid', async update => {
-    const { invoice_id } = update.payload;
-    const session = await db.connection.startSession();
-    await session.startTransaction();
-
-    try {
-        let invoice = await db.Invoice.findOne({ invoiceId: invoice_id });
-        invoice.paid = true;
-        await invoice.save();
-        let ctx = { user: await db.User.findOne({ user: invoice.user })};
-        let transferred = false;
-        ctx.user.assets.forEach((asset, i) => {
-            if (asset.name !== invoice.asset) return;
-            transferred = true;
-            ctx.user.assets[i].amount = new Big(asset.amount).plus(invoice.amount).toString();
-        });
-    
-        if (!transferred) {
-            ctx.user.assets.push({ name: invoice.asset, amount: invoice.amount });
-        }
-        await ctx.user.save();
-        const bot = require("../bot");
-        await bot.telegram.sendMessage( 
-            invoice.user,
-            '<b>+' + invoice.amount + ' ' + invoice.asset + '</b>',
-            { parse_mode: 'HTML' }
-        );
-    
-        await session.commitTransaction();
-        await session.endSession();
-    } catch(error) {
-        await session.abortTransaction();
-        await session.endSession();
-        console.log(error);
-    }
- 
-});
-
 
 module.exports = { deposit, onCurrencySelected, onAmountSelected };
