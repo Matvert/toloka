@@ -4,12 +4,7 @@ const config = require('../config');
 const token = process.env.CRYPTOPAY_API_TOKEN;
 const cryptoPay = new CryptoPay(token, {
     hostname: 'testnet-pay.crypt.bot',
-    protocol: 'https',
-    webhook: {
-        serverHostname: 'localhost',
-        serverPort: 8080,
-        path: '/webhook'
-    },
+    protocol: 'https'
 });
 
 const createInvoice = async (userId, amount, asset, description) => {
