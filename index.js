@@ -93,7 +93,7 @@ async function start() {
 
     const app = express();
     bot.telegram.setWebhook(`${config.domain}/bot`);
-    app.post("/webhook", express.json(), (req, res) => {
+    app.post("/webhook", express.json(), async (req, res) => {
         const update = req.body;
         const { invoice_id } = update.payload;
         const session = await db.connection.startSession();
