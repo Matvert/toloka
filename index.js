@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const { session } = require('telegraf-session-mongodb');
 const TelegrafI18n = require('telegraf-i18n');
 const path = require("path");
-
+const Big = require("big.js");
 const { db } = require('./database');
 const handlers = require("./handlers");
 
