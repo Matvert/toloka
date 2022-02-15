@@ -93,6 +93,43 @@ async function start() {
 
     const app = express();
     bot.telegram.setWebhook(`${config.domain}/bot`);
+    app.post("/webhook", express.json(), (req, res) => {
+        const update = req.body;
+        const { invoice_id } = update.payload;
+        const session = await db.connection.startSession();
+        await session.startTransaction();
+
+    try {
+        let invoice = await db.Invoice.findOne({ invoiceId: invoice_id });
+        invoice.paid = true;
+        await invoice.save();
+        let ctx = { user: await db.User.findOne({ user: invoice.user })};
+        let transferred = false;
+        ctx.user.assets.forEach((asset, i) => {
+            if (asset.name !== invoice.asset) return;
+            transferred = true;
+            ctx.user.assets[i].amount = new Big(asset.amount).plus(invoice.amount).toString();
+        });
+    
+        if (!transferred) {
+            ctx.user.assets.push({ name: invoice.asset, amount: invoice.amount });
+        }
+        await ctx.user.save();
+        const bot = require("../bot");
+        await bot.telegram.sendMessage( 
+            invoice.user,
+            '<b>+' + invoice.amount + ' ' + invoice.asset + '</b>',
+            { parse_mode: 'HTML' }
+        );
+    
+        await session.commitTransaction();
+        await session.endSession();
+    } catch(error) {
+        await session.abortTransaction();
+        await session.endSession();
+        console.log(error);
+    } 
+    });
     app.use(bot.webhookCallback('/bot'))
     app.listen(process.env.PORT || 3000);
 }
