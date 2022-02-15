@@ -1,7 +1,7 @@
 const { CryptoPay, PaidButtonNames } = require('@foile/crypto-pay-api');
 const config = require('../config');
 
-const token = '3994:AAtlf3cxR3oNVg9ryupBLxbPecBIJQpWrYu';
+const token = process.env.CRYPTOPAY_API_TOKEN;
 const cryptoPay = new CryptoPay(token, {
     hostname: 'testnet-pay.crypt.bot',
     protocol: 'https',
