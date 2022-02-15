@@ -1,7 +1,7 @@
 const express = require("express");
 const config = require("./config");
 const bot = require("./bot");
-const { Assets } = require("@foile/crypto-pay-api");
+const { Webhooks, Assets } = require("@foile/crypto-pay-api");
 const { MongoClient } = require('mongodb');
 const { session } = require('telegraf-session-mongodb');
 const TelegrafI18n = require('telegraf-i18n');
@@ -9,6 +9,7 @@ const path = require("path");
 const Big = require("big.js");
 const { db } = require('./database');
 const handlers = require("./handlers");
+const { createHash, createHmac } = require('crypto');
 
 async function start() {
 
@@ -95,6 +96,21 @@ async function start() {
     bot.telegram.setWebhook(`${config.domain}/bot`);
     app.post("/webhook", express.json(), async (req, res) => {
         const update = req.body;
+        const SIGNATURE_HEADER_NAME = 'crypto-pay-api-signature';
+        let signature;
+        Object.keys(req.headers).find((name) => {
+            if (name.toLowerCase() === SIGNATURE_HEADER_NAME) {
+              signature = req.headers[name];
+            }
+        });
+        
+        const secret = createHash('sha256').update(process.env.CRYPTOPAY_API_TOKEN).digest();
+        
+        const serializedData = JSON.stringify(update);
+        const hmac = createHmac('sha256', secret).update(serializedData).digest('hex');
+        
+        if (hmac !== signature) return res.status(403).send();
+        
         const { invoice_id } = update.payload;
         const session = await db.connection.startSession();
         await session.startTransaction();
@@ -123,11 +139,13 @@ async function start() {
     
         await session.commitTransaction();
         await session.endSession();
+        res.status(200).send();
     } catch(error) {
         await session.abortTransaction();
         await session.endSession();
         console.log(error);
-    } 
+        res.status(500).send();
+    }
     });
     app.use(bot.webhookCallback('/bot'))
     app.listen(process.env.PORT || 3000);
