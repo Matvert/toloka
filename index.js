@@ -115,7 +115,6 @@ async function start() {
             ctx.user.assets.push({ name: invoice.asset, amount: invoice.amount });
         }
         await ctx.user.save();
-        const bot = require("../bot");
         await bot.telegram.sendMessage( 
             invoice.user,
             '<b>+' + invoice.amount + ' ' + invoice.asset + '</b>',
