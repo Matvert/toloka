@@ -1,0 +1,105 @@
+back: Назад
+enter_title: "Введи название задания
+
+Например:<b>Тестирование телеграм бота</b>"
+enter_rules: Введи условия выполнения задания
+select_currency: Выбери валюту
+enter_price: Введи стоимость выполнения задания
+enter_positive: Введите число больше нуля
+enter_max: Введите максимальное количество выполнений
+publish_task: "<b>Опубликовать задание?</b>
+
+        <b>Название: </b> ${title}
+
+        <b>Цена за 1 выполнение: </b> ${price} ${asset}
+
+        <b>Максимальное количество выполнений: </b> ${count}
+
+        <b>Условия: </b> ${rules}"
+accept_publish: ${emoji} Да
+cancel_publish: ${emoji} Нет
+cancelled_publishing: Публикация отменена
+not_enough: Не хватает ${amount} ${asset}
+view_task: Посмотреть задание
+task_published: Задание опубликовано
+error: Произошла ошибка
+deposit: Пополнить баланс
+withdraw: Вывести средства
+my_tasks: Мои задания
+cabinet: "
+
+<b>Доступный баланс:</b>
+
+${balance}
+
+<b>Заблокированный баланс:</b>
+
+${blockedBalance}
+"
+enter_amount: Введи сумму в ${asset}
+enter_number: Введите число
+pay: Оплатить
+deposit_message: Чтобы пополнить баланс на ${amount} ${asset} перейдите по ссылке ниже
+language_updated: Язык изменен
+actual_tasks: ${emoji} Актуальные задания
+add_task: ${emoji} Добавить задание
+cabinet_button: ${emoji} Личный кабинет
+change_language: Change language
+start_message: В этом боте можно заработать деньги за выполнение заданий.
+no_tasks: Заданий нет
+first_page: Вы на первой странице
+last_page: Вы на последней странице
+actual_tasks_message: Выберите задание
+do: Выполнить
+task_info: "
+Задание #${id}
+
+${description}
+
+<b>Цена за выполнение: </b> ${amount} ${asset}
+
+'<b>Максимальное количество выполнений: </b> ${maxApplications}
+"
+you_already_do: Вы уже выполняете задание
+task_not_found: Задание не найдено
+task_not_actual: Задание уже не актуально
+cannot_do_own_task: Нельзя выполнять свое же задание
+time_over: Время на выполнение истекло
+send_solution: "Отправьте ваше решение текстом, допустимы ссылки на фото или видео
+<b>Автоотмена через 30 минут</b>"
+sent: Отправлено!
+accept: Принять
+reject: Отклонить
+task_solved: "
+Получены пруфы о выполнении задания #${_id}
+
+${text}
+"
+accepted_task: "
+Получены пруфы о выполнении задания #${task}
+
+${proof}
+
+<b>Принято</b>
+"
+task_executed: "
+Задание выполнено верно
+Вам начислено ${amount} ${asset}
+"
+
+failed_task: "
+Получены пруфы о выполнении задания #${task}
+
+${proof}
+
+<b>Отклонено</b>
+"
+
+task_failed: "Задание выполнено неверно"
+delete: Удалить
+already_deleted: Удалить данное задание невозможно, так как есть активные заявки
+task_deleted: Задание удалено
+enter_positive_number: Введите число, которое больше нуля
+not_enough_money: Недостаточно средств на балансе
+transfer_success: ${amount} ${asset} успешно перечислены вам на баланс
+amount_too_small: Слишком маленькая сумма

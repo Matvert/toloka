@@ -1,0 +1,113 @@
+back: Back
+enter_title: "Enter task name
+
+Example:<b>Test telegram bot</b>"
+enter_rules: Enter rules
+select_currency: Select currency
+enter_price: Enter task price
+enter_positive: Enter positive number
+enter_max: Enter maximal executions count
+publish_task: "<b>Publish task?</b>
+
+        <b>Title: </b> ${title}
+
+        <b>Price for one execution: </b> ${price} ${asset}
+
+        <b>Maximal executions: </b> ${count}
+
+        <b>Rules: </b> ${rules}
+"
+accept_publish: ${emoji} Yes
+cancel_publish: ${emoji} No
+cancelled_publishing: Cancelled
+not_enough: Need ${amount} ${asset}
+view_task: View task
+task_published: Task published
+error: Error
+deposit: Deposit
+withdraw: Withdraw
+my_tasks: My tasks
+cabinet: "
+<b>Balance:</b>
+
+${balance}
+
+
+<b>Blocked balance:</b>
+
+${blockedBalance}
+"
+enter_amount: Enter ${asset} amount
+enter_number: Enter number
+pay: Pay
+deposit_message: Press button below to deposit ${amount} ${asset}
+language_updated: Language updated
+actual_tasks: ${emoji} Actual tasks
+add_task: ${emoji} Add task
+cabinet_button: ${emoji} Cabinet
+change_language: Сменить язык
+start_message: In this bot you can make money by completing tasks.
+no_tasks: No tasks
+first_page: You're at first page
+last_page: You're at last page
+actual_tasks_message: Select task
+do: Execute
+task_info: "
+Task #${id}
+
+
+${description}
+
+
+<b>Price for one execution: </b> ${amount} ${asset}
+<b>Maximal executions: </b> ${maxApplications}
+"
+you_already_do: You already execute this task
+task_not_found: Task not found
+task_not_actual: Task is not actual
+cannot_do_own_task: Can't execute your own task
+time_over: Time over
+send_solution: "Send solution
+
+
+<b>30 minutes left</b>"
+sent: Sent!
+accept: Accept
+reject: Reject
+task_solved: "
+Solution for task #${_id}
+
+
+${text}
+"
+accepted_task: "
+Solution for task #${task}
+
+
+${proof}
+
+
+<b>Принято</b>
+"
+task_executed: "
+You received ${amount} ${asset} for executing the task
+"
+
+failed_task: "
+Solution for task #${task}
+
+
+${proof}
+
+
+<b>Rejected</b>
+"
+
+task_failed: "Task failed"
+delete: Delete
+already_deleted: Can't delete this task
+task_deleted: Task deleted
+enter_positive_number: Enter positive number
+not_enough_money: Not enough money
+transfer_success: ${amount} ${asset} already transferred
+amount_too_small: Amount too small
